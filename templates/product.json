@@ -20,12 +20,6 @@
           "settings": {
           }
         },
-        "f2df2c8d-7d59-4493-b7f2-4a6646217067": {
-          "type": "custom_liquid",
-          "settings": {
-            "custom_liquid": "<fieldset class=\"js product-form__input\">\n <legend class=\"form__label\">Color<\/legend>\n          \n<input type=\"swatch\" id=\"template--21024974864697__main-1-0\" name=\"Color\" value=\"Black\" form=\"product-form-template--21024974864697__main\" checked=\"\">\n<input type=\"radio\" id=\"template--21024974864697__main-1-1\" name=\"Color\" value=\"Red\" form=\"product-form-template--21024974864697__main\">\n    <label for=\"template--21024974864697__main-1-1\">\n      Red<span class=\"visually-hidden\">Variant sold out or unavailable<\/span>\n    <\/label><input type=\"radio\" id=\"template--21024974864697__main-1-2\" name=\"Color\" value=\"Tan\" form=\"product-form-template--21024974864697__main\">\n    <label for=\"template--21024974864697__main-1-2\">\n      Tan<span class=\"visually-hidden\">Variant sold out or unavailable<\/span>\n    <\/label>\n        <\/fieldset>"
-          }
-        },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
@@ -60,7 +54,6 @@
         "vendor",
         "title",
         "price",
-        "f2df2c8d-7d59-4493-b7f2-4a6646217067",
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
