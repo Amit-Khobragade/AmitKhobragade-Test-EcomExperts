@@ -56,7 +56,7 @@
             {%- endfor -%}
             {%- for article in predictive_search.resources.articles -%}
               <li id="predictive-search-option-article-desktop-{{ forloop.index }}" class="predictive-search__list-item" role="option" aria-selected="false">
-                <a href="{{ article.url }}" class="predictive-search__item link link--text" tabindex="-1">
+                <a href="{{ article.url }}" class="predictive-search__item link link--text article-search" tabindex="-1">
                   <div class="predictive-search__item-content predictive-search__item-content--centered">
                     <p class="predictive-search__item-heading h5">{{ article.title }}</p>
                   </div>
@@ -78,6 +78,8 @@
               </h2>
               <ul id="predictive-search-results-products-list" class="predictive-search__results-list list-unstyled" role="group" aria-labelledby="predictive-search-products">
                 {%- for product in predictive_search.resources.products -%}
+                  {% if product.id != 8679726580025 %}
+                    
                   <li id="predictive-search-option-product-{{ forloop.index }}" class="predictive-search__list-item" role="option" aria-selected="false">
                     <a href="{{ product.url }}" class="predictive-search__item predictive-search__item--link-with-thumbnail link link--text" tabindex="-1">
                       {%- if product.featured_media != blank -%}
@@ -95,7 +97,8 @@
                         {%- endif -%}
                       </div>
                     </a>
-                  </li>
+                    </li>
+                  {% endif %}
                 {%- endfor -%}
               </ul>
             </div>
