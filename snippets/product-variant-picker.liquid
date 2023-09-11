@@ -10,39 +10,34 @@
   {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
 {% endcomment %}
 {%- unless product.has_only_default_variant -%}
-  {%- if block.settings.picker_type == 'button' -%}
-    <variant-radios
-      id="variant-radios-{{ section.id }}"
-      class="no-js-hidden"
-      data-section="{{ section.id }}"
-      data-url="{{ product.url }}"
-      {% if update_url == false %}
-        data-update-url="false"
-      {% endif %}
-      {{ block.shopify_attributes }}
-    >
-      {%- for option in product.options_with_values -%}
+  <script>
+    window.onload = (event) => {
+      const split = window.location.href.split('?');
+      if (split.length > 1) {
+        window.location.replace(split[0]);
+      }
+    };
+  </script>
+  <custom-variant
+    id="variant-radios-{{ section.id }}"
+    class="no-js-hidden"
+    data-section="{{ section.id }}"
+    data-url="{{ product.url }}"
+    {% if update_url == false %}
+      data-update-url="false"
+    {% endif %}
+    {{ block.shopify_attributes }}
+  >
+    {%- for option in product.options_with_values -%}
+      {%- if option.name == 'Color' -%}
         <fieldset class="js product-form__input">
           <legend class="form__label">{{ option.name }}</legend>
           {% render 'product-variant-options', product: product, option: option, block: block %}
         </fieldset>
-      {%- endfor -%}
-      <script type="application/json">
-        {{ product.variants | json }}
-      </script>
-    </variant-radios>
-  {%- else -%}
-    <variant-selects
-      id="variant-selects-{{ section.id }}"
-      class="no-js-hidden"
-      data-section="{{ section.id }}"
-      data-url="{{ product.url }}"
-      {% if update_url == false %}
-        data-update-url="false"
-      {% endif %}
-      {{ block.shopify_attributes }}
-    >
-      {%- for option in product.options_with_values -%}
+        <script type="application/json">
+          {{ product.variants | json }}
+        </script>
+      {%- else -%}
         <div class="product-form__input product-form__input--dropdown">
           <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
             {{ option.name }}
@@ -59,13 +54,13 @@
             {% render 'icon-caret' %}
           </div>
         </div>
-      {%- endfor -%}
 
-      <script type="application/json">
-        {{ product.variants | json }}
-      </script>
-    </variant-selects>
-  {%- endif -%}
+        <script type="application/json">
+          {{ product.variants | json }}
+        </script>
+      {%- endif -%}
+    {%- endfor -%}
+  </custom-variant>
 {%- endunless -%}
 
 <noscript class="product-form__noscript-wrapper-{{ section.id }}">
