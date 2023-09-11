@@ -1,27 +1,35 @@
 {% comment %}
-Renders product variant-picker
+  Renders product variant-picker
 
-Accepts:
-- product: {Object} product object.
-- block: {Object} passing the block information.
-- product_form_id: {String} Id of the product form to which the variant picker is associated.
-- update_url: {Boolean} whether or not to update url when changing variants. If false, the url isn't updated. Default: true (optional).
-Usage:
-{% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+  Accepts:
+  - product: {Object} product object.
+  - block: {Object} passing the block information.
+  - product_form_id: {String} Id of the product form to which the variant picker is associated.
+  - update_url: {Boolean} whether or not to update url when changing variants. If false, the url isn't updated. Default: true (optional).
+  Usage:
+  {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
 {% endcomment %}
 {%- unless product.has_only_default_variant -%}
+  <script>
+    window.onload = (event) => {
+      const split = window.location.href.split('?');
+      if (split.length > 1) {
+        window.location.replace(split[0]);
+      }
+    };
+  </script>
   <custom-variant
     id="variant-radios-{{ section.id }}"
     class="no-js-hidden"
     data-section="{{ section.id }}"
     data-url="{{ product.url }}"
     {% if update_url == false %}
-    data-update-url="false"
+      data-update-url="false"
     {% endif %}
-    {{ block.shopify_attributes }}>
+    {{ block.shopify_attributes }}
+  >
     {%- for option in product.options_with_values -%}
       {%- if option.name == 'Color' -%}
-
         <fieldset class="js product-form__input">
           <legend class="form__label">{{ option.name }}</legend>
           {% render 'product-variant-options', product: product, option: option, block: block %}
@@ -30,7 +38,6 @@ Usage:
           {{ product.variants | json }}
         </script>
       {%- else -%}
-
         <div class="product-form__input product-form__input--dropdown">
           <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
             {{ option.name }}
@@ -40,7 +47,8 @@ Usage:
               id="Option-{{ section.id }}-{{ forloop.index0 }}"
               class="select__select"
               name="options[{{ option.name | escape }}]"
-              form="{{ product_form_id }}">
+              form="{{ product_form_id }}"
+            >
               {% render 'product-variant-options', product: product, option: option, block: block %}
             </select>
             {% render 'icon-caret' %}
@@ -50,7 +58,6 @@ Usage:
         <script type="application/json">
           {{ product.variants | json }}
         </script>
-
       {%- endif -%}
     {%- endfor -%}
   </custom-variant>
@@ -66,16 +73,18 @@ Usage:
         name="id"
         id="Variants-{{ section.id }}"
         class="select__select"
-        form="{{ product_form_id }}">
+        form="{{ product_form_id }}"
+      >
         {%- for variant in product.variants -%}
           <option
             {% if variant == product.selected_or_first_available_variant %}
-            selected="selected"
+              selected="selected"
             {% endif %}
             {% if variant.available == false %}
-            disabled
+              disabled
             {% endif %}
-            value="{{ variant.id }}">
+            value="{{ variant.id }}"
+          >
             {%- liquid
               echo variant.title
               echo variant.price | money | strip_html | prepend: ' - '
